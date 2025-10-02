@@ -31,45 +31,49 @@ pub async fn main_impl<'a, I: IntoIterator<Item = &'a String>>(args: I) -> anyho
     let cli = Cli::parse_from(args.into_iter());
 
     match cli.cmd {
-        Mode::Server { addr } => {
-            let mut sock = zeromq::RepSocket::new();
-            sock.bind(format!("tcp://{addr}").as_str()).await?;
+        Mode::Server { addr } => server_handler(addr).await,
+        Mode::Client { addr } => client_handler(addr).await,
+    }
+}
 
-            loop {
-                match sock.recv().await {
-                    Ok(msg) => {
-                        if msg.len() == 0 {
-                            println!("ERROR: Msg empty!");
-                            continue;
-                        }
-                        println!("Received Hello");
+async fn server_handler(bind_addr: SocketAddr) -> anyhow::Result<()> {
+    let mut sock = zeromq::RepSocket::new();
+    sock.bind(format!("tcp://{bind_addr}").as_str()).await?;
 
-                        sleep(Duration::from_secs(1)).await;
-
-                        let reply = ZmqMessage::from(SERVER_REPLY);
-                        sock.send(reply).await?;
-                    }
-                    Err(e) => eprintln!("Error: {e}"),
+    loop {
+        match sock.recv().await {
+            Ok(msg) => {
+                if msg.len() == 0 {
+                    println!("ERROR: Msg empty!");
+                    continue;
                 }
-            }
-        }
-        Mode::Client { addr } => {
-            println!("Connecting to hello world server...");
-            let mut sock = zeromq::ReqSocket::new();
-            sock.connect(format!("tcp://{addr}").as_str()).await?;
+                println!("Received Hello");
 
-            for i in 0..10 {
-                println!("Sending Hello {i}...");
-                sock.send(ZmqMessage::from("Hello")).await?;
-                match sock.recv().await {
-                    Ok(_) => {
-                        println!("Received World {i}...");
-                    }
-                    Err(e) => eprintln!("Error: {e}"),
-                }
+                sleep(Duration::from_secs(1)).await;
+
+                let reply = ZmqMessage::from(SERVER_REPLY);
+                sock.send(reply).await?;
             }
+            Err(e) => eprintln!("Error: {e}"),
         }
     }
+}
 
+async fn client_handler(connect_addr: SocketAddr) -> anyhow::Result<()> {
+    println!("Connecting to hello world server...");
+    let mut sock = zeromq::ReqSocket::new();
+    sock.connect(format!("tcp://{connect_addr}").as_str())
+        .await?;
+
+    for i in 0..10 {
+        println!("Sending Hello {i}...");
+        sock.send(ZmqMessage::from("Hello")).await?;
+        match sock.recv().await {
+            Ok(_) => {
+                println!("Received World {i}...");
+            }
+            Err(e) => eprintln!("Error: {e}"),
+        }
+    }
     Ok(())
 }
