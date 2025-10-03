@@ -7,9 +7,9 @@ use zeromq::prelude::*;
 
 #[derive(Debug, clap::Subcommand)]
 enum Mode {
-    /// Run the server, specifying the bind addr.
+    /// Run the Publisher, specifying the bind addr.
     Publisher { addr: SocketAddr },
-    /// Run the client, specifying the remote addr.
+    /// Run the Subscriber, specifying the remote addr and topic.
     Subscriber { addr: SocketAddr, topic: u32 },
 }
 
