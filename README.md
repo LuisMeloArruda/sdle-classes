@@ -19,7 +19,9 @@ Examples in Rust of the [ZeroMQ guide](https://zguide.zeromq.org/docs/chapter1/)
 
 ## Examples:
 
-- [`c00_hello.rs`](./src/c00_hello.rs): Various clients can send 10 "Hello" messages and the server will reply to each with "World".
+- [`c00_hello.rs`](./src/c00_hello.rs): Various clients can send 10 "Hello" messages and the server will reply to each with "World";
+
+- [`c00_pubsub.rs`](./src/c00_pubsub.rs): Each client subscribe to a topic and the publisher (i.e., the server) sends updates to the clients associated with that topic.
 
 ## Prerequisites:
 - Rust stable with Cargo in version 1.90.0 or higher;
@@ -28,7 +30,7 @@ Examples in Rust of the [ZeroMQ guide](https://zguide.zeromq.org/docs/chapter1/)
 ## Usage:
 
 ```bash
-make [client|server]_X # Where X is the number of the example
+make [client|server]_<example_name>
 ```
 
-For example, to spawn a client of the example 0, execute `make client_0`.
+For example, to spawn a client of the example inside the file `c00_hello.rs`, execute `make client_c00hello`.
