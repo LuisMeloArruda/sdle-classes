@@ -45,21 +45,21 @@ async fn pub_handler(bind_addr: SocketAddr) -> anyhow::Result<()> {
         let temperature = rng.random_range(-14..40);
         let relhumidity = rng.random_range(0..=100);
         let update = format!(
-            "Update for {zipcode}:\n  Temperature: {temperature}ºC\n  Humidity: {relhumidity}%.\n"
+            "Update for {zipcode:05}:\n  Temperature: {temperature}ºC\n  Humidity: {relhumidity}%.\n"
         );
         let Err(e) = sock.send(update.into()).await else {
             sleep(Duration::from_millis(1)).await;
             continue;
         };
 
-        eprintln!("Error sending message for ZIP {zipcode}: {e}");
+        eprintln!("Error sending message for ZIP {zipcode:05}: {e}");
     }
 }
 
 async fn sub_handler(connect_addr: SocketAddr, topic: u32) -> anyhow::Result<()> {
     println!("Connecting to weather server...");
     let mut sock = zeromq::SubSocket::new();
-    sock.subscribe(format!("Update for {topic}:\n").as_str())
+    sock.subscribe(format!("Update for {topic:05}:\n").as_str())
         .await?;
     sock.connect(format!("tcp://{connect_addr}").as_str())
         .await?;
