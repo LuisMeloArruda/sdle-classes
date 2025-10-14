@@ -3,6 +3,7 @@ use pluribus::pluribus;
 mod c00_hello;
 mod c00_pubsub;
 mod c01_polling;
+mod c01_queue;
 
 fn main() -> anyhow::Result<()> {
     pluribus!(
@@ -12,5 +13,6 @@ fn main() -> anyhow::Result<()> {
         - c00_hello;
         - c00_pubsub;
         - c01_polling;
+        - c01_queue;
     )(&std::env::args().collect::<Vec<_>>())
 }
