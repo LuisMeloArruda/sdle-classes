@@ -40,3 +40,13 @@ server_c01_queue: build
 
 broker_c01_queue: build
 	./examples/c01_queue broker $(ADDRESS1) $(ADDRESS2)
+
+# c02_xpubxsub:
+client_c02_xpubxsub: build
+	./examples/c02_xpubxsub subscriber $(ADDRESS1) 3
+
+server_c02_xpubxsub: build
+	./examples/c02_xpubxsub publisher $(ADDRESS2)
+
+broker_c02_xpubxsub: build
+	./examples/c02_xpubxsub broker $(ADDRESS1) $(ADDRESS2)
