@@ -6,6 +6,9 @@ mod c01_polling;
 mod c01_queue;
 mod c02_xpubxsub;
 
+/// The entry point of the program.
+/// Executes one of the examples based on the name of the executable.
+/// Check README.md or the pluribus documentation on how to execute the examples.
 fn main() -> anyhow::Result<()> {
     pluribus!(
         symbol: main;
