@@ -59,4 +59,4 @@ worker_c02_pushpull: build
 	./examples/c02_pushpull worker $(ADDRESS1) $(ADDRESS2)
 
 sink_c02_pushpull: build
- 	./examples/c02_pushpull sink $(ADDRESS2)
+	./examples/c02_pushpull sink $(ADDRESS2)
