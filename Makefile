@@ -50,3 +50,13 @@ server_c02_xpubxsub: build
 
 broker_c02_xpubxsub: build
 	./examples/c02_xpubxsub broker $(ADDRESS1) $(ADDRESS2)
+
+# c02_pushpull:
+ventilator_c02_pushpull: build
+	./examples/c02_pushpull ventilator $(ADDRESS1) $(ADDRESS2)
+
+worker_c02_pushpull: build
+	./examples/c02_pushpull worker $(ADDRESS1) $(ADDRESS2)
+
+sink_c02_pushpull: build
+ 	./examples/c02_pushpull sink $(ADDRESS2)

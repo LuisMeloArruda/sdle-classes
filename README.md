@@ -30,7 +30,7 @@ Examples in Rust of the [ZeroMQ guide](https://zguide.zeromq.org/docs/chapter1/)
 - [`c02_xpubxsub.rs`](./src/c02_xpubxsub.rs): A Pub/Sub "zipcode example" with a broker in the middle. The broker is a subscriber of all topics and
 a single publisher for all the subscribers.
 
-- [`c02_pushpull.rs`](./src/c02_pushpull.rs): // TODO
+- [`c02_pushpull.rs`](./src/c02_pushpull.rs): A Divide and Conquer stategy example where a ventilator gives 100 tasks (sleep between 1ms and 100ms and return `""`) to workers, which give the result to the sink.
 
 ## Prerequisites:
 - Rust stable with Cargo in version 1.90.0 or higher;

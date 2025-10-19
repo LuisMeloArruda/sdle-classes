@@ -5,6 +5,7 @@ mod c00_pubsub;
 mod c01_polling;
 mod c01_queue;
 mod c02_xpubxsub;
+mod c02_pushpull;
 
 /// The entry point of the program.
 /// Executes one of the examples based on the name of the executable.
@@ -19,5 +20,6 @@ fn main() -> anyhow::Result<()> {
         - c01_polling;
         - c01_queue;
         - c02_xpubxsub;
+        - c02_pushpull;
     )(&std::env::args().collect::<Vec<_>>())
 }
