@@ -2,7 +2,7 @@ use std::{net::SocketAddr, time::Duration};
 
 use clap::Parser;
 use rand::Rng;
-use tokio::{io::AsyncWriteExt, select, time::sleep};
+use tokio::{io::AsyncWriteExt, time::sleep};
 use zeromq::prelude::*;
 
 #[derive(Debug, clap::Subcommand)]

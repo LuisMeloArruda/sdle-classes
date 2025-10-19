@@ -3,7 +3,7 @@ use std::{net::SocketAddr, str::FromStr, time::Duration};
 use anyhow::anyhow;
 use clap::Parser;
 use rand::Rng;
-use tokio::{io::AsyncWriteExt, join, time::sleep};
+use tokio::{io::AsyncWriteExt, time::sleep};
 use zeromq::{ZmqMessage, prelude::*};
 
 #[derive(Debug, clap::Subcommand)]
